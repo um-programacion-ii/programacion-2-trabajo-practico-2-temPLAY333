@@ -1,5 +1,7 @@
 package servicios;
 
+import entidades.Usuario;
+
 public class GestorUsuarios {
     private static GestorUsuarios instance = null;
 
