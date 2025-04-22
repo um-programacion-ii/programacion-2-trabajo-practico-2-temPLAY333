@@ -1,11 +1,14 @@
 package entidades;
 
+import java.util.ArrayList;
+
 public class Usuario {
     private int id;
     private String nombre;
     private String apellido;
     private String email;
     private String password;
+    private ArrayList<RecursoDigital> recursosPrestados = new ArrayList<>();
 
     public Usuario(int id, String nombre, String apellido, String email, String password) {
         this.id = id;
@@ -57,5 +60,21 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public ArrayList<RecursoDigital> getRecursosPrestados() {
+        return recursosPrestados;
+    }
+
+    public void setRecursosPrestados(ArrayList<RecursoDigital> recursosPrestados) {
+        this.recursosPrestados = recursosPrestados;
+    }
+
+    public void agregarRecurso(RecursoDigital recurso) {
+        recursosPrestados.add(recurso);
+    }
+
+    public void eliminarRecurso(RecursoDigital recurso) {
+        recursosPrestados.remove(recurso);
     }
 }
