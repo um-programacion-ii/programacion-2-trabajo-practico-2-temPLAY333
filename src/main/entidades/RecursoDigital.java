@@ -19,6 +19,15 @@ public abstract class RecursoDigital implements IRecursoDigital {
         this.estado = estado;
     }
 
+    public void visualizar() {
+        System.out.println("Visualizando recurso digital: " + this.nombre);
+        System.out.println("Tipo de recurso: " + this.tipoRecurso());
+        System.out.println("Estado: " + this.estado);
+        System.out.println("Autor: " + this.autor);
+        System.out.println("Género: " + this.genero);
+        System.out.println("Fecha de publicación: " + this.fechaPublicacion);
+    }
+
     public String tipoRecurso() {
         return "digital";
     }
