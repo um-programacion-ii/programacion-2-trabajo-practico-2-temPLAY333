@@ -2,6 +2,8 @@ package entidades;
 
 import interfaces.IRecursoDigital;
 
+import java.time.LocalDateTime;
+
 public abstract class RecursoDigital implements IRecursoDigital {
     private int id;
     private String nombre;
@@ -17,23 +19,24 @@ public abstract class RecursoDigital implements IRecursoDigital {
         this.genero = genero;
         this.fechaPublicacion = fechaPublicacion;
         this.estado = estado;
+        this.fechaDevolucion = null;
     }
 
-    public void visualizar() {
-        System.out.println("Visualizando recurso digital: " + this.nombre);
-        System.out.println("Tipo de recurso: " + this.tipoRecurso());
-        System.out.println("Estado: " + this.estado);
-        System.out.println("Autor: " + this.autor);
-        System.out.println("Género: " + this.genero);
-        System.out.println("Fecha de publicación: " + this.fechaPublicacion);
+    public RecursoDigital() {
+        // Constructor vacío
     }
 
     public String tipoRecurso() {
         return "digital";
     }
 
-    public RecursoDigital() {
-        // Constructor vacío
+    public void visualizar() {
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Tipo de Recurso: " + tipoRecurso());
+        System.out.println("Estado: " + estado);
+        System.out.println("Autor: " + autor);
+        System.out.println("Género: " + genero);
+        System.out.println("Fecha de Publicación: " + fechaPublicacion);
     }
 
     public int getId() {
@@ -83,5 +86,4 @@ public abstract class RecursoDigital implements IRecursoDigital {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
 }
