@@ -2,7 +2,7 @@ package entidades;
 
 import interfaces.Prestable;
 
-public class Revista extends RecursoDigital implements Prestable {
+public class Revista extends RecursoPrestable {
 
     public Revista (int id, String nombre, String autor, String genero, String fechaPublicacion, String estado) {
         super(id, nombre, autor, genero, fechaPublicacion, estado);
@@ -17,13 +17,6 @@ public class Revista extends RecursoDigital implements Prestable {
         return "Revista";
     }
 
-    public void prestar() {
-        super.setEstado("prestado");
-    }
-
-    public void devolver() {
-        super.setEstado("disponible");
-    }
 
     public boolean estaDisponible() {
         if (super.getEstado().equals("disponible")) {

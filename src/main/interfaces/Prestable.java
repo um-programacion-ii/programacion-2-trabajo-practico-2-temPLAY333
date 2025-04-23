@@ -1,7 +1,13 @@
 package interfaces;
 
+import entidades.Usuario;
+
+import java.time.LocalDateTime;
+
 public interface Prestable {
-    void prestar();
-    void devolver();
     boolean estaDisponible();
+    void prestar(Usuario usuario);
+    void devolver(Usuario usuario);
+    LocalDateTime getFechaDevolucion();
+    void setFechaDevolucion(LocalDateTime fechaDevolucion);
 }
