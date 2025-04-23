@@ -7,14 +7,16 @@ public class Usuario {
     private String nombre;
     private String apellido;
     private String email;
+    private String telefono;
     private String password;
     private ArrayList<RecursoDigital> recursosPrestados = new ArrayList<>();
 
-    public Usuario(int id, String nombre, String apellido, String email, String password) {
+    public Usuario(int id, String nombre, String apellido, String email, String telefono, String password) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
+        this.telefono = telefono;
         this.password = password;
     }
 
@@ -52,6 +54,14 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public String getPassword() {
