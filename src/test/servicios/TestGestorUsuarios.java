@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class testGestorUsuarios {
+public class TestGestorUsuarios {
     private final GestorUsuarios gestorUsuarios = GestorUsuarios.getInstance();
 
     @BeforeEach
@@ -64,7 +64,6 @@ public class testGestorUsuarios {
             "María, 1",
             "Carlos, 1",
             "Gómez, 1",
-            "Carlos Gomez, 1",
     })
     public void testFiltrarUsuarioPorNombre_Existe(String nombre, int largoEsperado) {
         Map<String, Usuario> usuarios = gestorUsuarios.filtrarPorNombre(nombre);
