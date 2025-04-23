@@ -1,6 +1,6 @@
 package interfaces;
 
-public interface Renovable extends Prestable{
+public interface Renovable{
     void renovar();
     int getVecesRenovado();
     void setVecesRenovado(int vecesRenovado);
