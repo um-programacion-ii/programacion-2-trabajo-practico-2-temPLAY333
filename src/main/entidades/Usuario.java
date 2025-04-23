@@ -13,6 +13,7 @@ public class Usuario {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
+        this.telefono = telefono;
         this.password = password;
     }
 
