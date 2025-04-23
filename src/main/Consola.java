@@ -24,95 +24,160 @@ public class Consola {
     }
 
     public void menuBiblioteca () {
-        System.out.println("Bienvenido a la biblioteca digital. Por favor, marque que quiere hacer");
-        System.out.println("1. Manejar Usuarios");
-        System.out.println("1. Manejar Recursos");
+        while (true) {
+            System.out.println("Bienvenido a la biblioteca digital. Por favor, marque que quiere hacer");
+            System.out.println("1. Manejar Usuarios");
+            System.out.println("2. Manejar Recursos");
+            System.out.println("3. Salir");
+
+            int opcion = scanner.nextInt();
+            scanner.nextLine(); // Limpiar el buffer
+            switch (opcion) {
+                case 1:
+                    this.menuUsuarios();
+                    break;
+                case 2:
+                    this.menuRecursosDigitales();
+                    break;
+                case 3:
+                    System.out.println("Saliendo de la biblioteca digital. ¡Hasta luego!");
+                    return;
+                default:
+                    System.out.println("Opción no válida. Por favor, intente de nuevo.");
+                    break;
+            }
+        }
     }
 
     public void menuUsuarios() {
-        System.out.println("¿Qué desea hacer con los usuarios?");
-        System.out.println("1. Crear usuario");
-        System.out.println("2. Buscar usuario");
-        System.out.println("3. Eliminar usuario");
-        System.out.println("4. Listar usuarios");
+        while (true) {
+            System.out.println("¿Qué desea hacer con los usuarios?");
+            System.out.println("1. Crear usuario");
+            System.out.println("2. Buscar usuario");
+            System.out.println("3. Eliminar usuario");
+            System.out.println("4. Listar usuarios");
 
-        int opcion = scanner.nextInt();
-        scanner.nextLine(); // Limpiar el buffer
-        switch (opcion) {
-            case 1:
-                //this.crearUsuario();
-                break;
-            case 2:
-                //this.buscarUsuario();
-                break;
-            case 3:
-                //this.eliminarUsuario();
-                break;
-            case 4:
-                //this.listarUsuarios();
-                break;
-            default:
-                System.out.println("Opción no válida.");
+            int opcion = scanner.nextInt();
+            scanner.nextLine(); // Limpiar el buffer
+            switch (opcion) {
+                case 1:
+                    //this.crearUsuario();
+                    break;
+                case 2:
+                    //this.buscarUsuario();
+                    break;
+                case 3:
+                    //this.eliminarUsuario();
+                    break;
+                case 4:
+                    //this.listarUsuarios();
+                    break;
+                default:
+                    System.out.println("Opción no válida. Vuelta al menú anterior.");
+                    return;
+            }
         }
     }
 
     public void menuRecursosDigitales () {
-        System.out.println("¿Qué desea hacer con los recursos digitales?");
-        System.out.println("1. Crear recurso digital");
-        System.out.println("2. Buscar recurso digital");
-        System.out.println("3. Eliminar recurso digital");
-        System.out.println("4. Listar recursos digitales");
+        while (true) {
+            System.out.println("¿Qué desea hacer con los recursos digitales?");
+            System.out.println("1. Crear recurso digital");
+            System.out.println("2. Buscar recurso digital");
+            System.out.println("3. Eliminar recurso digital");
 
-        int opcion = scanner.nextInt();
-        scanner.nextLine(); // Limpiar el buffer
-        switch (opcion) {
-            case 1:
-                //this.crearRecursoDigital();
-                break;
-            case 2:
-                //this.buscarRecursoDigital();
-                break;
-            case 3:
-                //this.eliminarRecursoDigital();
-                break;
-            case 4:
-                //this.listarRecursosDigitales();
-                break;
-            default:
-                System.out.println("Opción no válida.");
+            int opcion = scanner.nextInt();
+            scanner.nextLine(); // Limpiar el buffer
+            switch (opcion) {
+                case 1:
+                    //this.crearRecursoDigital();
+                    break;
+                case 2:
+                    this.menuBuscarRecurso();
+                    break;
+                case 3:
+                    //this.eliminarRecursoDigital();
+                    break;
+                default:
+                    System.out.println("Opción no válida. Vuelta al menú anterior.");
+                    return;
+            }
         }
     }
 
+    public void menuBuscarRecurso () {
+        while (true) {
+            System.out.println("¿Como quiere encontrar el recurso?");
+            System.out.println("1. Buscar recurso digital por ID");
+            System.out.println("2. Buscar recurso digital por nombre");
+
+            int opcion = scanner.nextInt();
+            scanner.nextLine(); // Limpiar el buffer
+            switch (opcion) {
+                case 1:
+                    System.out.println("Ingrese el ID del recurso:");
+                    int id = scanner.nextInt();
+                    RecursoDigital recursoPorId = gestorRecursos.buscarRecursoPorId(id);
+                    if (recursoPorId != null) {
+                        recursoPorId.visualizar();
+                        menuRecursoEspecifico(recursoPorId);
+                    } else {
+                        System.out.println("No se encontró el recurso con ID " + id);
+                    }
+                    break;
+                case 2:
+                    System.out.println("Ingrese el nombre del recurso:");
+                    String nombre = scanner.nextLine();
+                    RecursoDigital recursoPorNombre = gestorRecursos.buscarRecursoPorNombre(nombre);
+                    if (recursoPorNombre != null) {
+                        recursoPorNombre.visualizar();
+                        menuRecursoEspecifico(recursoPorNombre);
+                    } else {
+                        System.out.println("No se encontró el recurso con nombre " + nombre);
+                    }
+                    break;
+                default:
+                    System.out.println("Opción no válida. Vuelta al menú anterior.");
+                    return;
+            }
+        }
+    }
 
     public void menuRecursoEspecifico (RecursoDigital recurso) {
-        System.out.println("¿Qué desea hacer con el recurso?");
-        System.out.println("1. Prestar el recurso");
-        System.out.println("2. Renovar el prestamo del recurso");
-        System.out.println("3. Marcar la devolucion del recurso");
+        while (true) {
+            System.out.println("¿Qué desea hacer con el recurso?");
+            System.out.println("0. Ver el recurso");
+            System.out.println("1. Prestar el recurso");
+            System.out.println("2. Renovar el prestamo del recurso");
+            System.out.println("3. Marcar la devolucion del recurso");
 
-        int opcion = scanner.nextInt();
-        scanner.nextLine(); // Limpiar el buffer
-        switch (opcion) {
-            case 1:
-                if (recurso instanceof Prestable) {
-                    this.prestarRecurso((RecursoPrestable) recurso);
-                } else {
-                    System.out.println("El recurso no es prestable.");
-                }
-                break;
-            case 2:
-                if (recurso instanceof Renovable) {
-                    this.renovarRecurso((RecursoRenovable) recurso);
-                } else {
-                    System.out.println("El recurso no es renovable.");
-                }
-                break;
-            case 3:
-                // Implementar devolución
-                break;
-            default:
-                System.out.println("Opción no válida. Vuelta al menú principal.");
-                return;
+            int opcion = scanner.nextInt();
+            scanner.nextLine(); // Limpiar el buffer
+            switch (opcion) {
+                case 0:
+                    recurso.visualizar();
+                    break;
+                case 1:
+                    if (recurso instanceof Prestable) {
+                        this.prestarRecurso((RecursoPrestable) recurso);
+                    } else {
+                        System.out.println("El recurso no es prestable.");
+                    }
+                    break;
+                case 2:
+                    if (recurso instanceof Renovable) {
+                        this.renovarRecurso((RecursoRenovable) recurso);
+                    } else {
+                        System.out.println("El recurso no es renovable.");
+                    }
+                    break;
+                case 3:
+                    // Implementar devolución
+                    break;
+                default:
+                    System.out.println("Opción no válida. Vuelta al menú anterior.");
+                    return;
+            }
         }
     }
 

@@ -5,15 +5,13 @@ import java.util.ArrayList;
 public class Usuario {
     private int id;
     private String nombre;
-    private String apellido;
     private String email;
     private String password;
     private ArrayList<RecursoDigital> recursosPrestados = new ArrayList<>();
 
-    public Usuario(int id, String nombre, String apellido, String email, String password) {
+    public Usuario(int id, String nombre, String email, String password) {
         this.id = id;
         this.nombre = nombre;
-        this.apellido = apellido;
         this.email = email;
         this.password = password;
     }
@@ -36,14 +34,6 @@ public class Usuario {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
     }
 
     public String getEmail() {
