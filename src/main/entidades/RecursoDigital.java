@@ -2,12 +2,15 @@ package entidades;
 
 import interfaces.IRecursoDigital;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public abstract class RecursoDigital implements IRecursoDigital {
     private int id;
     private String nombre;
     private String autor;
     private String categoria;
-    private String fechaPublicacion;
+    private LocalDate fechaPublicacion;
     private String estado;
 
     public RecursoDigital(int id, String nombre, String autor, String categoria, String fechaPublicacion, String estado) {
@@ -15,7 +18,7 @@ public abstract class RecursoDigital implements IRecursoDigital {
         this.nombre = nombre;
         this.autor = autor;
         this.categoria = categoria;
-        this.fechaPublicacion = fechaPublicacion;
+        this.fechaPublicacion = LocalDate.parse(fechaPublicacion, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.estado = estado;
     }
 
@@ -28,12 +31,7 @@ public abstract class RecursoDigital implements IRecursoDigital {
     }
 
     public void visualizar() {
-        System.out.println("Nombre: " + nombre);
-        System.out.println("Tipo de Recurso: " + tipoRecurso());
-        System.out.println("Estado: " + estado);
-        System.out.println("Autor: " + autor);
-        System.out.println("Género: " + categoria);
-        System.out.println("Fecha de Publicación: " + fechaPublicacion);
+        System.out.println(id + " - " + nombre + " - Autor: " + autor + " - Tipo: " + tipoRecurso() + " - (" + estado + ")");
     }
 
     public int getId() {
@@ -68,12 +66,12 @@ public abstract class RecursoDigital implements IRecursoDigital {
         this.categoria = categoria;
     }
 
-    public String getFechaPublicacion() {
+    public LocalDate getFechaPublicacion(){
         return fechaPublicacion;
     }
 
     public void setFechaPublicacion(String fechaPublicacion) {
-        this.fechaPublicacion = fechaPublicacion;
+        this.fechaPublicacion = LocalDate.parse(fechaPublicacion, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     public String getEstado() {

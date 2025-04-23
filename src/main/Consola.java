@@ -108,32 +108,37 @@ public class Consola {
     public void menuBuscarRecurso () {
         while (true) {
             System.out.println("¿Como quiere encontrar el recurso?");
-            System.out.println("1. Buscar recurso digital por ID");
-            System.out.println("2. Buscar recurso digital por nombre");
+            System.out.println("1. Listar recursos por comandos");
+            System.out.println("2. Acceder al recurso por ID o nombre");
 
             int opcion = scanner.nextInt();
             scanner.nextLine(); // Limpiar el buffer
             switch (opcion) {
                 case 1:
-                    System.out.println("Ingrese el ID del recurso:");
-                    int id = scanner.nextInt();
-                    RecursoDigital recursoPorId = gestorRecursos.buscarRecursoPorId(id);
-                    if (recursoPorId != null) {
-                        recursoPorId.visualizar();
-                        menuRecursoEspecifico(recursoPorId);
+                    System.out.println("Buscador:");
+                    String comando = scanner.nextLine();
+                    ArrayList<RecursoDigital> recursosFiltrados = gestorRecursos.realizarBusquedaPorComandos(comando);
+                    if (!recursosFiltrados.isEmpty()) {
+                        recursosFiltrados.forEach(RecursoDigital::visualizar);
                     } else {
-                        System.out.println("No se encontró el recurso con ID " + id);
+                        System.out.println("No se encontraron recursos con los parametros usados.");
                     }
                     break;
                 case 2:
-                    System.out.println("Ingrese el nombre del recurso:");
-                    String nombre = scanner.nextLine();
-                    RecursoDigital recursoPorNombre = gestorRecursos.buscarRecursoPorNombre(nombre);
-                    if (recursoPorNombre != null) {
-                        recursoPorNombre.visualizar();
-                        menuRecursoEspecifico(recursoPorNombre);
+                    System.out.println("Ingrese el identificador (ID o nombre) del recurso:");
+                    String identificador = scanner.nextLine();
+                    RecursoDigital recurso = null;
+
+                    recurso = gestorRecursos.buscarPorId(Integer.parseInt(identificador));
+                    if (recurso == null) {
+                        recurso = gestorRecursos.buscarPorNombre(identificador);
+                    }
+
+                    if (recurso != null) {
+                        recurso.visualizar();
+                        menuRecursoEspecifico(recurso);
                     } else {
-                        System.out.println("No se encontró el recurso con nombre " + nombre);
+                        System.out.println("No se encontró el recurso con el identificador proporcionado.");
                     }
                     break;
                 default:
