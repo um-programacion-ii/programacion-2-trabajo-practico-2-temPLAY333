@@ -48,7 +48,7 @@ public class GestorRecursos {
             resultados = filtrarPorAutor(autor, resultados);
         }
 
-        // Filtrar por categoría
+        // Filtrar por género (categoría)
         String categoria = extraerPatron(consulta, "categoria:\"([^\"]*)\"|categoria:([^S]+)");
         if (categoria != null) {
             resultados = filtrarPorCategoria(categoria, resultados);
@@ -99,6 +99,9 @@ public class GestorRecursos {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    /**
+     * Filtra recursos por su género/categoría
+     */
     public ArrayList<RecursoDigital> filtrarPorCategoria(String categoria, ArrayList<RecursoDigital> recursos) {
         return recursos.stream()
                 .filter(recurso -> recurso.getCategoria().equalsIgnoreCase(categoria))

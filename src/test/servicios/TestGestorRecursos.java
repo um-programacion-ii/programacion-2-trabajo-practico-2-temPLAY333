@@ -1,6 +1,7 @@
 package servicios;
 
 import entidades.AudioLibro;
+import entidades.CategoriaRecurso;
 import entidades.Libro;
 import entidades.Revista;
 import entidades.RecursoDigital;
@@ -23,15 +24,15 @@ public class TestGestorRecursos {
         gestorRecursos.setRecursosDigitales(new ArrayList<>());
 
         // Preparar datos de prueba
-        RecursoDigital libro = new Libro(1, "El Quijote", "Cervantes", "Clásico", "1605-01-01", "disponible");
-        RecursoDigital revista = new Revista(2, "National Geographic", "National Geographic Society", "Ciencia", "2023-11-07", "disponible");
-        RecursoDigital audioLibro = new AudioLibro(3, "Elantris", "Brandon Sanderson", "Fantasía", "2005-03-15", "disponible");
-        RecursoDigital libro2 = new Libro(4, "1984", "George Orwell", "Distopía", "1949-06-08", "prestado");
-        RecursoDigital revista2 = new Revista(5, "Science Today", "National Geographic Society", "Tecnología", "2022-10-15", "disponible");
-        RecursoDigital audioLibro2 = new AudioLibro(6, "Dune", "Frank Herbert", "Ciencia Ficción", "1965-08-01", "disponible");
-        RecursoDigital libro3 = new Libro(7, "El Hobbit", "J.R.R. Tolkien", "Fantasía", "1937-09-21", "disponible");
-        RecursoDigital revista3 = new Revista(8, "Nature", "Nature Publishing Group", "Medicina", "2023-01-01", "prestado");
-        RecursoDigital audioLibro3 = new AudioLibro(9, "Fundación", "Isaac Asimov", "Ciencia Ficción", "1951-06-01", "disponible");
+        RecursoDigital libro = new Libro(1, "El Quijote", "Cervantes", CategoriaRecurso.CLASICO, "1605-01-01", "disponible");
+        RecursoDigital revista = new Revista(2, "National Geographic", "National Geographic Society", CategoriaRecurso.CIENCIA, "2023-11-07", "disponible");
+        RecursoDigital audioLibro = new AudioLibro(3, "Elantris", "Brandon Sanderson", CategoriaRecurso.FANTASIA, "2005-03-15", "disponible");
+        RecursoDigital libro2 = new Libro(4, "1984", "George Orwell", CategoriaRecurso.DISTOPIA, "1949-06-08", "prestado");
+        RecursoDigital revista2 = new Revista(5, "Science Today", "National Geographic Society", CategoriaRecurso.TECNOLOGIA, "2022-10-15", "disponible");
+        RecursoDigital audioLibro2 = new AudioLibro(6, "Dune", "Frank Herbert", CategoriaRecurso.CIENCIA_FICCION, "1965-08-01", "disponible");
+        RecursoDigital libro3 = new Libro(7, "El Hobbit", "J.R.R. Tolkien", CategoriaRecurso.FANTASIA, "1937-09-21", "disponible");
+        RecursoDigital revista3 = new Revista(8, "Nature", "Nature Publishing Group", CategoriaRecurso.MEDICINA, "2023-01-01", "prestado");
+        RecursoDigital audioLibro3 = new AudioLibro(9, "Fundación", "Isaac Asimov", CategoriaRecurso.CIENCIA_FICCION, "1951-06-01", "disponible");
 
         gestorRecursos.agregarRecurso(libro);
         gestorRecursos.agregarRecurso(revista);
@@ -96,7 +97,6 @@ public class TestGestorRecursos {
         assertNull(resultado);
     }
 
-
     // Tests para Filtrar Recursos
     @ParameterizedTest
     @CsvSource({
@@ -131,12 +131,15 @@ public class TestGestorRecursos {
 
     @ParameterizedTest
     @CsvSource({
-            "Ciencia, 1", // National Geographic
-            "Fantasía, 2", // El Hobbit y Elantris
-            "Clásico, 1", // El Quijote
-            "Ciencia Ficción, 2" // Dune y Fundación
+            "CIENCIA, 1", // National Geographic
+            "FANTASIA, 2", // El Hobbit y Elantris
+            "CLASICO, 1", // El Quijote
+            "CIENCIA_FICCION, 2" // Dune y Fundación
     })
-    public void testFiltrarRecursoPorCategoria(String categoria, int cantidadEsperada) {
+    public void testFiltrarRecursoPorCategoria(String categoriaStr, int cantidadEsperada) {
+        // Convertir string a enum
+        CategoriaRecurso categoria = CategoriaRecurso.valueOf(categoriaStr);
+        
         // Cuando
         ArrayList<RecursoDigital> resultado = gestorRecursos.filtrarPorCategoria(categoria, gestorRecursos.getRecursosDigitales());
 
@@ -162,7 +165,7 @@ public class TestGestorRecursos {
     @ParameterizedTest
     @CsvSource({
             "autor:\"Cervantes\", autor:\"([^\"]*)\"|autor:([^S]+), Cervantes", // Patrón de autor
-            "categoria:\"Fantasía\", categoria:\"([^\"]*)\"|categoria:([^S]+), Fantasía", // Patrón de categoría
+            "categoria:\"FANTASIA\", categoria:\"([^\"]*)\"|categoria:([^S]+), FANTASIA", // Patrón de categoría
             "fecha:2023, fecha:(\\d{4}), 2023", // Patrón de fecha
     })
     public void testExtraerPatrones(String comando, String patron, String esperado) {
@@ -172,19 +175,18 @@ public class TestGestorRecursos {
         assertEquals(esperado, resultado);
     }
 
-
     @ParameterizedTest
     @CsvSource({
             "autor:\"Cervantes\", 1", // El Quijote
-            "categoria:Fantasía, 2", // El Hobbit y Elantris
+            "categoria:FANTASIA, 2", // El Hobbit y Elantris
             "fecha:2023, 2", // National Geographic y Nature
-            "autor:\"National Geographic Society\" categoria:Ciencia, 1", // National Geographic
+            "autor:\"National Geographic Society\" categoria:CIENCIA, 1", // National Geographic
             "autor:\"Brandon Sanderson\" fecha:2005, 1", // Elantris
-            "categoria:\"Ciencia Ficción\" fecha:1965, 1", // Dune
-            "autor:\"Isaac Asimov\" categoria:\"Ciencia Ficción\", 1", // Fundación
-            "categoria:\"Clásico\" fecha:1605, 1", // El Quijote
+            "categoria:\"CIENCIA_FICCION\" fecha:1965, 1", // Dune
+            "autor:\"Isaac Asimov\" categoria:\"CIENCIA_FICCION\", 1", // Fundación
+            "categoria:\"CLASICO\" fecha:1605, 1", // El Quijote
             "autor:\"National Geographic Society\" Science, 1", // Science Today
-            "categoria:\"Fantasía\" Hobbit, 1" // El Hobbit
+            "categoria:\"FANTASIA\" Hobbit, 1" // El Hobbit
     })
     public void testFiltrarPorComandos(String comando, int cantidadEsperada) {
         // Cuando
