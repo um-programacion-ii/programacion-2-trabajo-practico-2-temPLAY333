@@ -2,7 +2,6 @@ package servicios;
 
 import entidades.Usuario;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,14 +20,11 @@ public class GestorUsuarios {
         return instance;
     }
 
+    // Métodos de búsqueda para los usuarios
     public Usuario buscarUsuario(String nombre) {
-        Usuario usuario = new Usuario();
-        // Aquí se implementaría la lógica para buscar usuarios en la base de datos o en una lista
-        // Por ahora, se devuelve una lista vacía
-        return usuario;
+        return usuarios.get(nombre);
     }
 
-    // Métodos de búsqueda para los usuarios
     public Usuario buscarUsuarioPorId(int id) {
         return usuarios.values().stream()
                 .filter(usuario -> usuario.getId() == id)
@@ -36,8 +32,8 @@ public class GestorUsuarios {
                 .orElse(null);
     }
 
-    // IA: Queria un sistema de busqueda de palabras parciales en el nombre o apellidos de los usuarios
-    public Map<String, Usuario> buscarUsuariosCoincidentes(String busqueda) {
+    // IA: Queria un sistema de busqueda (filtrado) de palabras parciales en el nombre o apellidos de los usuarios
+    public Map<String, Usuario> filtrarPorNombre(String busqueda) {
         Map<String, Usuario> resultados = new HashMap<>();
         String terminoBusqueda = busqueda.toLowerCase().trim();
 
