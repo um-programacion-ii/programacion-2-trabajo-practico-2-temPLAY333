@@ -1,6 +1,7 @@
 package entidades;
 
 import interfaces.IRecursoDigital;
+import recursos.CategoriaRecurso;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +10,7 @@ public abstract class RecursoDigital implements IRecursoDigital {
     private int id;
     private String nombre;
     private String autor;
-    private String categoria;
+    private CategoriaRecurso categoria;
     private LocalDate fechaPublicacion;
     private String estado;
 
@@ -17,13 +18,14 @@ public abstract class RecursoDigital implements IRecursoDigital {
         this.id = id;
         this.nombre = nombre;
         this.autor = autor;
-        this.categoria = categoria;
+        this.asignarCategoria(categoria);
         this.fechaPublicacion = LocalDate.parse(fechaPublicacion, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.estado = estado;
     }
 
     public RecursoDigital() {
         // Constructor vacío
+        this.categoria = CategoriaRecurso.OTRO;
     }
 
     public String tipoRecurso() {
@@ -31,7 +33,19 @@ public abstract class RecursoDigital implements IRecursoDigital {
     }
 
     public void visualizar() {
-        System.out.println(id + " - " + nombre + " - Autor: " + autor + " - Tipo: " + tipoRecurso() + " - (" + estado + ")");
+        System.out.println(id + " - " + nombre + " - Autor: " + autor + " - Tipo: " + tipoRecurso() + " - Género: " + getCategoria() + " - (" + estado + ")");
+    }
+
+    public void asignarCategoria(String categoriaStr) {
+        if (categoriaStr == null || categoriaStr.isEmpty()) {
+            this.categoria = CategoriaRecurso.OTRO;
+        } else {
+            this.categoria = CategoriaRecurso.fromString(categoriaStr);
+        }
+    }
+
+    public void asignarCategoria(CategoriaRecurso categoria) {
+        this.categoria = categoria;
     }
 
     public int getId() {
@@ -59,11 +73,15 @@ public abstract class RecursoDigital implements IRecursoDigital {
     }
 
     public String getCategoria() {
+        return categoria.toString();
+    }
+    
+    public CategoriaRecurso getCategoriaEnum() {
         return categoria;
     }
 
     public void setCategoria(String categoria) {
-        this.categoria = categoria;
+        this.asignarCategoria(categoria);
     }
 
     public LocalDate getFechaPublicacion(){

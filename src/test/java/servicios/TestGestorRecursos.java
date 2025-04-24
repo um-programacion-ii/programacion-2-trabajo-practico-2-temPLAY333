@@ -96,7 +96,6 @@ public class TestGestorRecursos {
         assertNull(resultado);
     }
 
-
     // Tests para Filtrar Recursos
     @ParameterizedTest
     @CsvSource({
@@ -131,16 +130,13 @@ public class TestGestorRecursos {
 
     @ParameterizedTest
     @CsvSource({
-            "Ciencia, 1", // National Geographic
             "Fantasía, 2", // El Hobbit y Elantris
             "Clásico, 1", // El Quijote
             "Ciencia Ficción, 2" // Dune y Fundación
     })
-    public void testFiltrarRecursoPorCategoria(String categoria, int cantidadEsperada) {
-        // Cuando
-        ArrayList<RecursoDigital> resultado = gestorRecursos.filtrarPorCategoria(categoria, gestorRecursos.getRecursosDigitales());
+    public void testFiltrarRecursoPorCategoria(String categoriaStr, int cantidadEsperada) {
+        ArrayList<RecursoDigital> resultado = gestorRecursos.filtrarPorCategoria(categoriaStr, gestorRecursos.getRecursosDigitales());
 
-        // Entonces
         assertNotNull(resultado);
         assertEquals(cantidadEsperada, resultado.size());
     }
@@ -162,7 +158,7 @@ public class TestGestorRecursos {
     @ParameterizedTest
     @CsvSource({
             "autor:\"Cervantes\", autor:\"([^\"]*)\"|autor:([^S]+), Cervantes", // Patrón de autor
-            "categoria:\"Fantasía\", categoria:\"([^\"]*)\"|categoria:([^S]+), Fantasía", // Patrón de categoría
+            "categoria:\"FANTASIA\", categoria:\"([^\"]*)\"|categoria:([^S]+), FANTASIA", // Patrón de categoría
             "fecha:2023, fecha:(\\d{4}), 2023", // Patrón de fecha
     })
     public void testExtraerPatrones(String comando, String patron, String esperado) {
@@ -172,19 +168,18 @@ public class TestGestorRecursos {
         assertEquals(esperado, resultado);
     }
 
-
     @ParameterizedTest
     @CsvSource({
-            "autor:\"Cervantes\", 1", // El Quijote
-            "categoria:Fantasía, 2", // El Hobbit y Elantris
-            "fecha:2023, 2", // National Geographic y Nature
-            "autor:\"National Geographic Society\" categoria:Ciencia, 1", // National Geographic
-            "autor:\"Brandon Sanderson\" fecha:2005, 1", // Elantris
-            "categoria:\"Ciencia Ficción\" fecha:1965, 1", // Dune
-            "autor:\"Isaac Asimov\" categoria:\"Ciencia Ficción\", 1", // Fundación
-            "categoria:\"Clásico\" fecha:1605, 1", // El Quijote
-            "autor:\"National Geographic Society\" Science, 1", // Science Today
-            "categoria:\"Fantasía\" Hobbit, 1" // El Hobbit
+        "autor:\"Cervantes\", 1", // El Quijote
+        "categoria:Fantasía, 2", // El Hobbit y Elantris
+        "fecha:2023, 2", // National Geographic y Nature
+        "autor:\"National Geographic Society\" categoria:Ciencia, 1", // National Geographic
+        "autor:\"Brandon Sanderson\" fecha:2005, 1", // Elantris
+        "categoria:\"Ciencia ficción\" fecha:1965, 1", // Dune
+        "autor:\"Isaac Asimov\" categoria:\"Ciencia ficción\", 1", // Fundación
+        "categoria:\"Clásico\" fecha:1605, 1", // El Quijote
+        "autor:\"National Geographic Society\" Science, 1", // Science Today
+        "categoria:\"Fantasía\" Hobbit, 1" // El Hobbit
     })
     public void testFiltrarPorComandos(String comando, int cantidadEsperada) {
         // Cuando
