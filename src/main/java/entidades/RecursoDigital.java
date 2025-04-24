@@ -37,7 +37,11 @@ public abstract class RecursoDigital implements IRecursoDigital {
     }
 
     public void asignarCategoria(String categoriaStr) {
-        this.categoria = CategoriaRecurso.fromString(categoriaStr);
+        if (categoriaStr == null || categoriaStr.isEmpty()) {
+            this.categoria = CategoriaRecurso.OTRO;
+        } else {
+            this.categoria = CategoriaRecurso.fromString(categoriaStr);
+        }
     }
 
     public void asignarCategoria(CategoriaRecurso categoria) {

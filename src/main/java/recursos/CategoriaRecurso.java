@@ -14,6 +14,10 @@ public enum CategoriaRecurso {
     COMEDIA("Comedia"),
     ACCION("Acción"),
     EDUCATIVO("Educativo"),
+    DISTOPIA("Distopía"),
+    CIENCIA("Ciencia"),
+    MEDICINA("Medicina"),
+    TECNOLOGIA("Tecnología"),
     OTRO("Otro");
 
     private final String nombre;
@@ -27,17 +31,17 @@ public enum CategoriaRecurso {
     }
 
     /**
-     * Convierte una cadena de texto a un género.
-     * Si no coincide con ningún género, devuelve OTRO.
+     * Convierte una cadena de texto a una categoría.
+     * Si no coincide con ninguna categoría, devuelve OTRO.
      */
     public static CategoriaRecurso fromString(String categoria) {
-        if (categoria == null || categoria.isEmpty()) {
+        if (categoria == null || categoria.trim().isEmpty()) {
             return OTRO;
         }
         
         for (CategoriaRecurso cat : CategoriaRecurso.values()) {
-            if (cat.getNombre().equalsIgnoreCase(categoria) || 
-                cat.name().equalsIgnoreCase(categoria)) {
+            if (cat.getNombre().equalsIgnoreCase(categoria.trim()) || 
+                cat.name().equalsIgnoreCase(categoria.trim())) {
                 return cat;
             }
         }

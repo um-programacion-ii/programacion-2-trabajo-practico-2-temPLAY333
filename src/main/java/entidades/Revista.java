@@ -1,7 +1,5 @@
 package entidades;
 
-import interfaces.Prestable;
-
 public class Revista extends RecursoPrestable {
 
     public Revista (int id, String nombre, String autor, String genero, String fechaPublicacion, String estado) {
