@@ -131,7 +131,7 @@ public class TestGestorRecursos {
 
     @ParameterizedTest
     @CsvSource({
-            "CIENCIA, 1", // National Geographic
+            "            Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1')), 1", // National Geographic
             "FANTASIA, 2", // El Hobbit y Elantris
             "CLASICO, 1", // El Quijote
             "CIENCIA_FICCION, 2" // Dune y Fundación
